@@ -19,6 +19,7 @@ void BST<T>::clear(Item *node)
 template <typename T>
 typename BST<T>::Item* BST<T>::insert(Item *node, const T& d) 
 {  // CD1:Si node->data==d , ¿no se insertan duplicados? <<--
+	
      if (node == nullptr){//CD2: :l'abre es buid
         node = new Item(d, nullptr, nullptr);
     } 
@@ -38,19 +39,22 @@ typename BST<T>::Item* BST<T>::insert(Item *node, const T& d)
 template <typename T>
 typename BST<T>::Item* BST<T>::find(Item *node, const T& d) const 
 {
+	/*flata la funcio de oredenar paraules per ser bts balancejat */
 	// CD:l'abre es buid o d==node->dada (el valor(freq) de d es igual al 
 	// valor que apunta le punter node)
 	Item*res=nullptr;
     if (node == nullptr or node->data == d){
         res=node;
     }
-    // d es mes gran que la node->dada (el valor que apunta el punter node)
-    if (node->data < d){
-        res=find(node->right, d);
+    else{
+		// d es mes gran que la node->dada (el valor que apunta el punter node)
+		if (node->data < d){
+			res=find(node->right, d);
+		}
+		else{// d es mes petita que la node->dada (el valor que apunta el punter node)
+		res=find(node->left, d);
+		} 
     }
-    else{// d es mes petita que la node->dada (el valor que apunta el punter node)
-    res=find(node->left, d);
-    } 
     return res;	
 }
 

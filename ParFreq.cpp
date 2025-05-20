@@ -40,6 +40,22 @@ using namespace std;
 	   bool operator==(const ParFreq pf) const{
 		  return freq==pf.freq and par==pf.par;
 	   }
-	   
+	   bool operator<(const ParFreq& pf) const {
+      return par < pf;
+       }
+	  // Comparar ParFreq('par') con un string 
+	   bool operator==(const std::string& p) const {
+	    	return par == p;
+	   }
+	   bool operator<(const std::string& p) const {
+	    	return par < p;
+	   }
+	   // Comparar ParFreq (usa solo 'freq') con int 
+	   bool operator==(int f) const {
+	    	return freq == f;
+	   }
+	   bool operator<(int f) const {
+		    return freq < f;
+	   }
 	   //...
 	   
