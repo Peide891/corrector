@@ -54,24 +54,22 @@ void Diccionari::insereix(int inici, int fi){
   /* Post: El resultat indica si el diccionari conté la
   paraula rebuda per paràmetre */
  bool Diccionari::conte(const string &paraula) const {// cerca en el BST
-	bool res=bst.find(paraula).first;
-    return res;
+	 ParFreq pf(paraula, 0);
+	 BST<ParFreq>::Item* node = bst.find(buscada);
+    return node != nullptr;
  }
  /* Pre: La paraula rebuda per paràmetre està en el	diccionari */
   /* Post: El resultat és la freqüència que apareix al
 	diccionari de la paraula rebuda per paràmetre */	 
    int Diccionari::getFrequencia(const string &paraula) const{
-	 int f;
-	 bool find=false;
-	 int i=0;
-	 while(i<unsigned int(diccionari.size())){
-		if(diccionari[i]==paraula){
-			f=diccionari[i].getFrequencia();
-		}
-		++i;
-     }
-     return f; 
-   }		  
+    ParFreq pf(paraula, 0);
+    BST<ParFreq>::Item* node = bst.find(pf);
+    int freq = 0;
+    if (node != nullptr) {
+        freq = node->data.getFrequencia();
+    }
+    return freq;
+}		  
 
 // ...
 

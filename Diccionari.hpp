@@ -70,7 +70,6 @@ class Diccionari {
 	  
 	private:
 	      vector<ParFreq> diccionari;
-	      const string path="diccionari_freq.txt";
 	      BST<ParFreq> bst;
 	    //*********************************************************
 		// Mètodes privats auxiliars

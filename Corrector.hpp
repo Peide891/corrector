@@ -58,10 +58,8 @@ class Corrector {
 		
 
 	private:
-	     const string signes Puntuacio=".,!?;";
-	     const strings alfabet= "abcdefghijklmnopqrstuvwxyz";
-	     Diccionari<ParFreq> dic_bst;
-	     
+	     Diccionari dic_bst;
+	     vector <string> corret;
 	     
 	     
 	
