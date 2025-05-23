@@ -58,12 +58,10 @@ class Corrector {
 		
 
 	private:
-	     const string signes Puntuacio=".,!?;";
-	     const strings alfabet= "abcdefghijklmnopqrstuvwxyz";
-	     Diccionari<ParFreq> dic_bst;
-	     
-	     
-	     
+	     Diccionari dic_bst;
+	     vector <string> corret;
+	     vector<pair<string, string>> v;
+	     string out;
 	
 		// IMPLEMENTACIÓ DE LA CLASSE Corrector 
 		// (definició del nom i tipus de cada atribut)

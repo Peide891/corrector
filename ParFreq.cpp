@@ -41,7 +41,7 @@ using namespace std;
 		  return freq==pf.freq and par==pf.par;
 	   }
 	   bool operator<(const ParFreq& pf) const {
-      return par < pf;
+          return par < pf.par;
        }
 	  // Comparar ParFreq('par') con un string 
 	   bool operator==(const std::string& p) const {
