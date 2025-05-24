@@ -23,10 +23,10 @@ typename BST<T>::Item* BST<T>::insert(Item *node, const T& d)
      if (node == nullptr){//CD2: :l'abre es buid
         node = new Item(d, nullptr, nullptr);
     } 
-    else if (node->data>d) {// d es mes petita que la node->dada (el valor que apunta el punter node)
+    else if (node->data.getFreq()>d.getFreq()) {// d es mes petita que la node->dada (el valor que apunta el punter node)
         node->left = insert(node->left, d);
     } 
-    else if (node->data<d) {//d es mes gran que la node->dada (el valor que apunta el punter node)
+    else if (node->data.getFreq()<d.getFreq()) {//d es mes gran que la node->dada (el valor que apunta el punter node)
         node->right = insert(node->right, d);
     }
     return node;
@@ -43,12 +43,12 @@ typename BST<T>::Item* BST<T>::find(Item *node, const T& d) const
 	// CD:l'abre es buid o d==node->dada (el valor(freq) de d es igual al 
 	// valor que apunta le punter node)
 	Item*res=nullptr;
-    if (node == nullptr or node->data == d){
+    if (node == nullptr or node->data.getPar() == d.getPar()){
         res=node;
     }
     else{
 		// d es mes gran que la node->dada (el valor que apunta el punter node)
-		if (node->data < d){
+		if (node->data.getPar() < d.getPar()){
 			res=find(node->right, d);
 		}
 		else{// d es mes petita que la node->dada (el valor que apunta el punter node)

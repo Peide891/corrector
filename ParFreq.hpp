@@ -36,18 +36,18 @@ class ParFreq {
 	   
 	   /* Pre: Cert */
 	   /* Post: El resultat és la paraula del paràmetre implícit */
-	   string getParaula() const;
+	   string getPar() const;
 	   
 	   /* Pre: Cert */
 	   /* Post: El resultat és la freqüència del paràmetre implícit */
-	   int getFrequencia() const;
+	   int getFreq() const;
 	   
 	   /* Pre:  Cert  */
 	   /* Post: El resultat indica si la paraula del paràmetre implícit
 		és igual a la paraula del parell rebut per paràmetre */ 	   
-	   bool operator==(const ParFreq pf) const;
+	   bool operator==(const ParFreq& pf) const;
 	   bool operator<(const ParFreq& pf) const;
-	   
+	   bool operator!=(const ParFreq& pf) const;
 	  // Comparar ParFreq('par') con un string 
 	   bool operator==(const std::string& p) const;
 	   bool operator<(const std::string& p) const;
@@ -55,8 +55,6 @@ class ParFreq {
 	   // Comparar ParFreq (usa solo 'freq') con int 
 	   bool operator==(int f) const;
 	   bool operator<(int f) const;
-	   
-	   
 	private:
 	//vector<pair>
 	    string par;

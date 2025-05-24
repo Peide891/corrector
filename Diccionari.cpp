@@ -8,16 +8,12 @@ using namespace std;
  //*********************************************************
  // Constructors
  //*********************************************************
-  Diccionari(){}
-  Diccionari(vector<ParFreq> &parf, BTS<ParFreq> &t) {
-	  diccionari=parf;
-	  bts=t;
-  }
+   Diccionari::Diccionari(){}
  //...	   
  //*********************************************************
  // Destructor
  //*********************************************************
- ~Diccionari(){}
+  Diccionari::~Diccionari(){}
  //...
  //*********************************************************
  // Modificadors
@@ -29,7 +25,7 @@ parell rebut per paràmetre; altrament, el diccionari no  s'ha modificat */
 void Diccionari::insereix(const ParFreq &pf){
 	bool find=false;
 	int i=0;
-	while( i<unsigned int(diccionari.size() and not find)){
+	while( i<diccionari.size() and not find){
 		if(diccionari[i]!=pf){
 			diccionari.push_back(pf);
 			find=true;
@@ -37,43 +33,41 @@ void Diccionari::insereix(const ParFreq &pf){
 		++i;
 	}
 }
-void Diccionari::ordre(){
-	sort(diccionari.begin(), diccionari.end());
-    insereix(0 ,diccionari.size()-1);
-}
 void Diccionari::insereix(int inici, int fi){
 	if(inici<= fi){
 		int mig = inici + (fi - inici) / 2; 
-		bts.insert(diccionari[mig]);
+		bst.insert(diccionari[mig]);
 		insereix(inici, mig - 1);  // part esquerra del vector
         insereix(mig + 1, fi);     // part dret del vector
 	}
 		
 }
+void Diccionari::ordre(){
+	sort(diccionari.begin(), diccionari.end());
+    insereix(0 ,diccionari.size()-1);
+}
+
  /* Pre:  Cert  */
   /* Post: El resultat indica si el diccionari conté la
   paraula rebuda per paràmetre */
  bool Diccionari::conte(const string &paraula) const {// cerca en el BST
 	 ParFreq pf(paraula, 0);
-	 BST<ParFreq>::Item* node = bst.find(buscada);
-    return node != nullptr;
+	pair<bool, ParFreq> res=bst.find(pf);
+    return res.first;
  }
  /* Pre: La paraula rebuda per paràmetre està en el	diccionari */
   /* Post: El resultat és la freqüència que apareix al
 	diccionari de la paraula rebuda per paràmetre */	 
    int Diccionari::getFrequencia(const string &paraula) const{
     ParFreq pf(paraula, 0);
-    BST<ParFreq>::Item* node = bst.find(pf);
-    int freq = 0;
-    if (node != nullptr) {
-        freq = node->data.getFrequencia();
+    pair<bool, ParFreq> res = bst.find(pf);
+    int freq=0;
+    if (res.first) {
+        freq = res.second.getFreq();
     }
     return freq;
 }		  
 
-// ...
-
-// ...
 
 //*********************************************************
 void Diccionari::llegeixDeFitxer(const string &path)

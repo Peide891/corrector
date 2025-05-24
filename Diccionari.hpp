@@ -20,7 +20,7 @@ class Diccionari {
 	   //*********************************************************
 	   Diccionari();
 	   //...
-	   Diccionari(vector<ParFreq> &parf, BTS<ParFreq> &t);
+	   Diccionari(vector<ParFreq> &parf, BST<ParFreq> &t);
 	   //*********************************************************
 	   // Destructor
 	   //*********************************************************
@@ -30,6 +30,7 @@ class Diccionari {
    	   //*********************************************************
 	   // Modificadors
 	   //*********************************************************
+	   void insereix(int inici, int fi);
 	   void ordre();
 	   /* Pre: Cert */
 	   /* Post: Si la paraula del parell rebut per  paràmetre no 
@@ -52,10 +53,6 @@ class Diccionari {
 	   /* Post: El resultat és la freqüència que apareix al
 		diccionari de la paraula rebuda per paràmetre */	 
 	   int getFrequencia(const string &paraula) const;
-	   
-	   //...
-	   
-	   //...
 	   
 	   //*********************************************************
 	   //Lectura i escriptura
