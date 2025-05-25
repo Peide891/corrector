@@ -19,8 +19,6 @@ class Diccionari {
 	   // Constructors
 	   //*********************************************************
 	   Diccionari();
-	   //...
-	   Diccionari(vector<ParFreq> &parf, BTS<ParFreq> &t);
 	   //*********************************************************
 	   // Destructor
 	   //*********************************************************
@@ -30,6 +28,7 @@ class Diccionari {
    	   //*********************************************************
 	   // Modificadors
 	   //*********************************************************
+	   void insereix(int inici, int fi);
 	   void ordre();
 	   /* Pre: Cert */
 	   /* Post: Si la paraula del parell rebut per  paràmetre no 
@@ -46,16 +45,11 @@ class Diccionari {
 	   /* Post: El resultat indica si el diccionari conté la
 	   paraula rebuda per paràmetre */	   
 	   bool conte(const string &paraula) const; // cerca en el BST
-	   
 	   /* Pre: La paraula rebuda per paràmetre està en el
 		diccionari */
 	   /* Post: El resultat és la freqüència que apareix al
 		diccionari de la paraula rebuda per paràmetre */	 
 	   int getFrequencia(const string &paraula) const;
-	   
-	   //...
-	   
-	   //...
 	   
 	   //*********************************************************
 	   //Lectura i escriptura
@@ -67,10 +61,9 @@ class Diccionari {
 		i omple el diccionari; altrament, mostra un missatge 
 		d'error.*/
 	   void llegeixDeFitxer(const string &path);
-	  
+	  void escriu();
 	private:
 	      vector<ParFreq> diccionari;
-	      const string path="diccionari_freq.txt";
 	      BST<ParFreq> bst;
 	    //*********************************************************
 		// Mètodes privats auxiliars
