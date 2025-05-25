@@ -28,11 +28,16 @@ class Corrector {
 		 les entrades del fitxer i omple el diccionari del corrector
 		 que crea; altrament, mostra un missatge d'error */
 		Corrector(const string &rutaDiccionari);   // carrega el diccionari (BST)
-
+        string getWord(string &paraula);
+        
 		//*********************************************************
 		// Modificadors
 		//*********************************************************
-		
+		void insercio(string &paraula, int &mida);
+		void esborra(string &paraula, int &mida);
+	    void substitucio(string &paraula, int &mida);
+		void transposicio(string &paraula, int &mida);
+		bool duplicat(string &paraula);
 		/* Pre: Cert */
 		/* Post: Si rutaInput està associat a un fitxer, llegeix el
 		 text del fitxer línia a línia, corregeix cadascuna de les
@@ -40,11 +45,6 @@ class Corrector {
 		 rutaOutput i escriu al fitxer associat a rutaLog els canvis
 		 que hagi fet; altrament, mostra un missatge d'error */		
 		void processaText(const string &rutaInput, const string &rutaOutput, const string &rutaLog);
-		
-		//...
-	   
-		//...
-		
 		
 		//*********************************************************
 		//Lectura i escriptura
@@ -56,15 +56,14 @@ class Corrector {
 		 cada línia paraula_original -> paraula_corregida */
 		void bolcaRegistre(const string &rutaLog);
 		
+		void escriureCorrecsio(const string &rutaOutput);
 
 	private:
-	     const string signes Puntuacio=".,!?;";
-	     const strings alfabet= "abcdefghijklmnopqrstuvwxyz";
-	     Diccionari<ParFreq> dic_bst;
-	     
-	     
-	     
-	
+	     Diccionari dic_bst;
+	     vector <string> corret;
+	     vector<pair<string, string>> v;
+	     string out;
+	     vector<string> sample;
 		// IMPLEMENTACIÓ DE LA CLASSE Corrector 
 		// (definició del nom i tipus de cada atribut)
 		// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
