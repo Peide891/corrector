@@ -18,25 +18,34 @@ class Diccionari {
 	   //*********************************************************
 	   // Constructors
 	   //*********************************************************
+	  
+	   /* Pre: Cert */
+       /* Post: Crea un diccionari buit */
 	   Diccionari();
+	  
 	   //*********************************************************
 	   // Destructor
 	   //*********************************************************
+	 
+	   /* Pre: Cert */
+       /* Post: Allibera els recursos del diccionari */
 	   ~Diccionari();
-	   //...
 	 
    	   //*********************************************************
 	   // Modificadors
 	   //*********************************************************
+	  
+	   /* Pre: 0 ≤ inici ≤ fi < diccionari.size() .  el vector diccionari
+        * conte tots els elements que ha de rebre per tractar*/
+	   /* Post: Insereix els elements de diccionari entre inici i fi 
+	    * (ambdós inclosos) al BST de forma balancejada */
 	   void insereix(int inici, int fi);
-	   void ordre();
-	   /* Pre: Cert */
-	   /* Post: Si la paraula del parell rebut per  paràmetre no 
-		apareixia ja al diccionari, s'ha afegit al diccionari el
-		parell rebut per paràmetre; altrament, el diccionari no 
-		s'ha modificat */
-	   void insereix(const ParFreq &pf);  // inserció en el BST
 	   
+	   /* Pre:  el vector diccionari
+        * conte tots els elements que ha de rebre per tractar*/
+	   /* Post: Ordena el vector diccionari i insereix els elements al BST balancejat */
+	   void ordre();
+	  
 	   //*********************************************************
 	   // Consultors
 	   //*********************************************************
@@ -45,6 +54,7 @@ class Diccionari {
 	   /* Post: El resultat indica si el diccionari conté la
 	   paraula rebuda per paràmetre */	   
 	   bool conte(const string &paraula) const; // cerca en el BST
+	   
 	   /* Pre: La paraula rebuda per paràmetre està en el
 		diccionari */
 	   /* Post: El resultat és la freqüència que apareix al
@@ -61,18 +71,9 @@ class Diccionari {
 		i omple el diccionari; altrament, mostra un missatge 
 		d'error.*/
 	   void llegeixDeFitxer(const string &path);
-	  void escriu();
+	   
 	private:
 	      vector<ParFreq> diccionari;
 	      BST<ParFreq> bst;
-	    //*********************************************************
-		// Mètodes privats auxiliars
-		//*********************************************************
-		  
-	      
-			  
-		// IMPLEMENTACIÓ DE LA CLASSE Diccionari 
-		// (definició del nom i tipus de cada atribut)
-		// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
 };
 #endif

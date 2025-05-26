@@ -69,9 +69,8 @@ class BST  {
 		//*********************************************************
 		// Destructor
 		//*********************************************************
-	
-		/* Esborra automàticament els objectes locals
-		   en sortir d'un àmbit de visibilitat */
+		/* Pre: cert */
+        /* Post: Allibera tota la memòria de l’arbre. */
 		~BST();
 
 		//*********************************************************

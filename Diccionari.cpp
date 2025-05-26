@@ -3,81 +3,84 @@
 #include <algorithm> 
 using namespace std;
 
-// IMPLEMENTACIÓ DE LA CLASSE Diccionari
-// (implementació de tots els mètodes especificats en el fitxer Diccionari.hpp)
  //*********************************************************
  // Constructors
  //*********************************************************
-  Diccionari(){}
-  Diccionari(vector<ParFreq> &parf, BTS<ParFreq> &t) {
-	  diccionari=parf;
-	  bts=t;
-  }
- //...	   
+   /* Pre: Cert */
+   /* Post: Crea un diccionari buit */
+   Diccionari::Diccionari(){}
  //*********************************************************
  // Destructor
  //*********************************************************
- ~Diccionari(){}
- //...
+ 
+/* Pre: Cert */
+/* Post: Allibera els recursos del diccionari */
+  Diccionari::~Diccionari(){}
  //*********************************************************
  // Modificadors
  //*********************************************************
- /* Pre: Cert */
- /* Post: Si la paraula del parell rebut per  paràmetre no 
- apareixia ja al diccionari, s'ha afegit al diccionari el
-parell rebut per paràmetre; altrament, el diccionari no  s'ha modificat */
-void Diccionari::insereix(const ParFreq &pf){
-	bool find=false;
-	int i=0;
-	while( i<unsigned int(diccionari.size() and not find)){
-		if(diccionari[i]!=pf){
-			diccionari.push_back(pf);
-			find=true;
-		}
-		++i;
-	}
-}
-void Diccionari::ordre(){
-	sort(diccionari.begin(), diccionari.end());
-    insereix(0 ,diccionari.size()-1);
-}
+/* Pre: 0 ≤ inici ≤ fi < diccionari.size() .  el vector diccionari
+ * conte tots els elements que ha de rebre per tractar*/
+/* Post: Insereix els elements de diccionari entre inici i fi 
+ * (ambdós inclosos) al BST de forma balancejada */
+
 void Diccionari::insereix(int inici, int fi){
 	if(inici<= fi){
 		int mig = inici + (fi - inici) / 2; 
-		bts.insert(diccionari[mig]);
+		bst.insert(diccionari[mig]);
+		/* S’insereixen al bst els elements del diccionari entre inici 
+		 * i fi fent servir l’element mig com a arrel */
+		 
 		insereix(inici, mig - 1);  // part esquerra del vector
+		/* H.I.: S’insereixen recursivament al bst els elements del diccionari
+		 * entre inici i mig-1 fent servir l’element mig com a arrel */
+        /* Fita: fi - inici */
         insereix(mig + 1, fi);     // part dret del vector
-	}
+	    /* H.I.: S’insereixen recursivament al bst els elements del diccionari
+		 * entre mig i fi fent servir l’element mig com a arrel */
+        /* Fita: fi - inici */
+        }
 		
 }
+/* Pre:  el vector diccionari
+ * conte tots els elements que ha de rebre per tractar*/
+/* Post: Ordena el vector diccionari i insereix els elements al BST balancejat */
+void Diccionari::ordre(){
+	sort(diccionari.begin(), diccionari.end());//ordena el diccionari alfabeticament
+    insereix(0 ,diccionari.size()-1);
+}
+//*********************************************************
+// Consultors
+//*********************************************************
  /* Pre:  Cert  */
-  /* Post: El resultat indica si el diccionari conté la
+ /* Post: El resultat indica si el diccionari conté la
   paraula rebuda per paràmetre */
  bool Diccionari::conte(const string &paraula) const {// cerca en el BST
-	bool res=bst.find(paraula).first;
-    return res;
+	ParFreq pf(paraula, 0);
+	pair<bool, ParFreq> res=bst.find(pf);
+    return res.first;
  }
  /* Pre: La paraula rebuda per paràmetre està en el	diccionari */
-  /* Post: El resultat és la freqüència que apareix al
+ /* Post: El resultat és la freqüència que apareix al
 	diccionari de la paraula rebuda per paràmetre */	 
    int Diccionari::getFrequencia(const string &paraula) const{
-	 int f;
-	 bool find=false;
-	 int i=0;
-	 while(i<unsigned int(diccionari.size())){
-		if(diccionari[i]==paraula){
-			f=diccionari[i].getFrequencia();
-		}
-		++i;
-     }
-     return f; 
-   }		  
+    ParFreq pf(paraula, 0);
+    pair<bool, ParFreq> res = bst.find(pf);
+    int freq=0;
+    if (res.first) {
+        freq = res.second.getFreq();
+    }
+    return freq;
+}		  
 
-// ...
-
-// ...
 
 //*********************************************************
+// Lectura
+//*********************************************************
+/* Pre: Cert */
+/* Post: Si el path rebut per paràmetre està associat a un
+fitxer, llegeix el fitxer de parells (paraula, freqüència)
+i omple el diccionari; altrament, mostra un missatge d'error.*/
 void Diccionari::llegeixDeFitxer(const string &path)
 {
     ifstream fitxer(path);
@@ -87,12 +90,15 @@ void Diccionari::llegeixDeFitxer(const string &path)
 
     string paraula;
 	int frequencia;
-    while (fitxer >> paraula >> frequencia) {  // llegeix un parell (paraula, freq) 
-											   // per línia
+    while (fitxer >> paraula >> frequencia) {  // llegeix un parell (paraula, freq)  per línia
+    // INV: El vector 'diccionari' conté els parells (paraula, freqüència)
+    //      de totes les línies llegides fins ara del fitxer (path).
+    // totes les línies anteriors del fitxer
+    // Fita: nombre de línies restants del fitxer
 		ParFreq pf(paraula, frequencia);
-        insereix(pf);       
+        diccionari.push_back(pf);       
     }
-    ordre(); //insereix al BTS
+    ordre();// Insereix els elements ordenats al BST
 }
 
 	  

@@ -28,16 +28,40 @@ class Corrector {
 		 les entrades del fitxer i omple el diccionari del corrector
 		 que crea; altrament, mostra un missatge d'error */
 		Corrector(const string &rutaDiccionari);   // carrega el diccionari (BST)
-        string getWord(string &paraula);
+		
+        //*********************************************************
+		// Consultors
+		//*********************************************************
+		
+		/* Pre: paraula no buida */
+        /* Post: Retorna true si paraula ja esta al vector corret, false altrament */
+		bool duplicat(const string &paraula,const vector <string> &corret);
+		
+		/* Pre: paraula no buida */
+        /* Post: Retorna la millor paraula candidata (freq més alta); 
+         * si no n’hi ha, retorna la paraula original */
+        string getWord(string &paraula, const vector <string> &corret);
         
 		//*********************************************************
 		// Modificadors
 		//*********************************************************
-		void insercio(string &paraula, int &mida);
-		void esborra(string &paraula, int &mida);
-	    void substitucio(string &paraula, int &mida);
-		void transposicio(string &paraula, int &mida);
-		bool duplicat(string &paraula);
+		
+		/* Pre: paraula no buida, mida és la mida de la paraula sense signes si en te*/
+        /* Post: Afegeix a corret les paraules del diccionari generades per inserció d’una lletra */
+		void insercio(string &paraula, int &mida, vector <string> &corret);
+		
+		/* Pre: paraula no buida, mida és la mida de la paraula sense signes si en te*/
+        /* Post: Afegeix a corret les paraules del diccionari generades per eliminar una lletra */
+		void esborra(string &paraula, int &mida, vector <string> &corret);
+		
+		/* Pre: paraula no buida, mida és la mida de la paraula sense signes si en te*/
+        /* Post: Afegeix a corret les paraules del diccionari generades per substitució d’una lletra */
+	    void substitucio(string &paraula, int &mida, vector <string> &corret);
+	    
+  	    /* Pre: paraula no buida, mida és la mida de la paraula sense signes si en te*/
+        /* Post: Afegeix a corret les paraules vàlides del diccionari amb transposició de dues lletres */
+		void transposicio(string &paraula, int &mida, vector <string> &corret);
+		
 		/* Pre: Cert */
 		/* Post: Si rutaInput està associat a un fitxer, llegeix el
 		 text del fitxer línia a línia, corregeix cadascuna de les
@@ -55,18 +79,15 @@ class Corrector {
 		 les correccions fetes al text d'entrada sent el format de
 		 cada línia paraula_original -> paraula_corregida */
 		void bolcaRegistre(const string &rutaLog);
-		
+		/* Pre: Cert */
+		/* Post: S'han escrit al fitxer associat a rutaOutput totes 
+		 les correccions fetes al text d'entrada*/
 		void escriureCorrecsio(const string &rutaOutput);
 
 	private:
 	     Diccionari dic_bst;
-	     vector <string> corret;
 	     vector<pair<string, string>> v;
-	     string out;
 	     vector<string> sample;
-		// IMPLEMENTACIÓ DE LA CLASSE Corrector 
-		// (definició del nom i tipus de cada atribut)
-		// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
 
 };
 
